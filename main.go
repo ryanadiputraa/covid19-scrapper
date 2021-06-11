@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"strconv"
 	"strings"
 
 	"github.com/gocolly/colly"
@@ -32,9 +34,15 @@ func main() {
 	collector.Visit("https://covid19.go.id/")
 	
 	// trim and convert data
-
+	cleanData := make([]int, 0)
 	for _, d := range collectedData {
-		trimmed := strings.ReplaceAll(d, ".", "")
-		fmt.Println(trimmed)
+		tr := strings.ReplaceAll(d, ".", "")
+		d, err := strconv.Atoi(tr)
+		if err != nil {
+			log.Println("cant convert data")
+		}
+		cleanData = append(cleanData, d)
 	}
+
+	fmt.Println(cleanData)
 }
