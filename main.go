@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/gocolly/colly"
 )
@@ -31,7 +32,9 @@ func main() {
 	collector.Visit("https://covid19.go.id/")
 	
 	// trim and convert data
+
 	for _, d := range collectedData {
-		fmt.Println(d)
+		trimmed := strings.ReplaceAll(d, ".", "")
+		fmt.Println(trimmed)
 	}
 }
